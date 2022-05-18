@@ -1,0 +1,20 @@
+card_type,name,price,description,value_to_activate,activated_from,income,income_from,income_times,card_type_in_effect
+Big Construction,Train Station,4,You may roll 1 or 2 dice on your turn,,,,,,
+Big Construction,Shopping Mall,10,Increase the number of coins you get for your 'F&B Service' and 'Store' cards by 1,,,,,,
+Big Construction,Amusement Park,16,"If you roll doubles, take another turn immediately after this one",,,,,,
+Big Construction,Radio Tower,22,You may re-roll your dice once each turn,,,,,,
+Field,Wheat Field,1,Receive 1 coin from the bank in anyone's turn,1,Anyone,1,Bank,Once,
+Farm,Livestock Farm,1,Receive 1 coin from the bank in anyone's turn,2,Anyone,1,Bank,Once,
+Store,Bakery,1,Receive 1 coin from the bank if it's your turn,"2,3",You,1,Bank,Once,
+F&B Service,Cafe,2,Receive 1 coin from any player who rolls this number,3,Dice Roller,1,Dice Roller,Once,
+Store,Convenience Store,2,Receive 3 coins from the bank if it's your turn,4,You,3,Bank,Once,
+Industry,Forest,3,Receive 1 coin from the bank in anyone's turn,5,Anyone,1,Bank,Once,
+Big Construction,Stadium,6,Receive 2 coins from each player if it's your turn,6,You,2,Each Player,Each Player,
+Big Construction,TV Station,7,Receive 5 coins from one player of your choice if it's your turn,6,You,5,Chosen Player,Once,
+Big Construction,Business Complex,8,"You may exchange one 'non-Big_Construction' card with any other player, or do nothing if it's your turn",6,You,,Exchange,Once,
+Factory,Cheese Factory,5,Receive 3 coins from the bank for every 'Farm' card you have if it's your turn,7,You,3,Bank,Each Card_type,Farm
+Factory,Furniture Factory,3,Receive 3 coins from the bank for every 'Industry' card you have if it's your turn,8,You,3,Bank,Each Card_type,Industry
+Industry,Mine,6,Receive 5 coins from the bank in anyone's turn,9,Anyone,5,Bank,Once,
+F&B Service,Family Restaurant,3,Receive 2 coins from any player who rolls this number,"9,10",Dice Roller,2,Dice Roller,Once,
+Field,Apple Orchard,3,Receive 3 coins from the bank in anyone's turn,10,Anyone,3,Bank,Once,
+Market,Vegetable Market,2,Receive 2 coins from the bank for every 'Field' card you have if it's your turn,"11,12",You,2,Bank,Each Card_type,Field
