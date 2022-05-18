@@ -47,8 +47,6 @@ class MachiKoro_Env(gym.Env):
             'Phase': self.phase,
             'Cards_bought': []
         }
-
-        self.run_game()
     
     def render(self, mode='human', close=False):
         p_rint_horizontal_lines()
@@ -87,6 +85,7 @@ class MachiKoro_Env(gym.Env):
                     if type(self.value_of_dice) == tuple and self.value_of_dice[0] == self.value_of_dice[1]\
                         and self.turn.important_land_cards['Amusement Park'] == 1:
                         self.bonus_turn = True
+                        print(self.turn.name, 'sẽ được thêm lượt nếu chấp nhận kết quả đổ xúc xắc')
                     else:
                         self.bonus_turn = False
                     
@@ -200,7 +199,8 @@ class MachiKoro_Env(gym.Env):
 
         self.change_phase()
     
-    def exchange_card(self, card_give: str, card_receive: str, id_player: int):
+    def exchange_card(self, card_give: str, card_receive: str, _id: int):
+        id_player = (self.players.index(self.turn) + _id) % self.players.__len__()
         if card_give == '' or card_receive == '':
             print(Fore.LIGHTYELLOW_EX, self.turn.name, 'không thực hiện trao đổi'.upper(), Style.RESET_ALL)
             pass
