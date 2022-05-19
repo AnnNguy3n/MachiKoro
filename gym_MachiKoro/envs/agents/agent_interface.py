@@ -1,7 +1,7 @@
-from gym_MachiKoro.envs.agents import agent_B as p1
-from gym_MachiKoro.envs.agents import agent_B as p2
-from gym_MachiKoro.envs.agents import agent_B as p3
-from gym_MachiKoro.envs.agents import agent_B as p4
+from gym_MachiKoro.envs.agents import random as p1
+from gym_MachiKoro.envs.agents import random as p2
+from gym_MachiKoro.envs.agents import random as p3
+from gym_MachiKoro.envs.agents import random as p4
 
 agent1 = p1.Agent('Đông')
 agent2 = p2.Agent('Tây')
