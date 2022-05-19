@@ -8,13 +8,7 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
-        # action_space = self.action_space(dict_input['Turn_player_cards'], dict_input['Board'].turn_cards, dict_input['Board'].turn_cards_owner)
-        # list_action = []
-        # for key in action_space.keys():
-        #     list_action += action_space[key]
-
         state = self.get_list_state(dict_input)
-
 
         list_action = self.get_list_index_action(self.get_list_state(dict_input))
 
