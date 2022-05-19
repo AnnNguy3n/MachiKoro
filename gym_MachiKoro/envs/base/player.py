@@ -1,7 +1,6 @@
 from copy import deepcopy
 import pandas
 import json
-import numpy
 from gym_MachiKoro.envs.base.card import Support_Card, Important_Land_Card
 
 
@@ -202,15 +201,15 @@ class Player:
         my_id = list_p_name.index(self.name)
 
         # 0 - 19: Các thẻ vùng đất và hỗ trợ của bản thân, tiền
-        state_list += list(numpy.array(list(self.important_land_cards.values())))
-        state_list += list(numpy.array(list(self.support_cards.values())))
+        state_list += list(self.important_land_cards.values())
+        state_list += list(self.support_cards.values())
         state_list += [self.coins]
         
         # 20 - 79: Các thẻ vùng đất và hỗ trợ của đối thủ, tiền, theo góc nhìn của bản thân
         for i in range(1, list_p_name.__len__()):
             id_player = (list_p_name.index(self.name) + i) % list_p_name.__len__()
-            state_list += list(numpy.array(list(dict_input['Player'][id_player].important_land_cards.values())))
-            state_list += list(numpy.array(list(dict_input['Player'][id_player].support_cards.values())))
+            state_list += list(dict_input['Player'][id_player].important_land_cards.values())
+            state_list += list(dict_input['Player'][id_player].support_cards.values())
             state_list += [dict_input['Player'][id_player].coins]
 
         # 80: Phase
@@ -237,7 +236,7 @@ class Player:
         state_list += [dict_input['Remaining_exchange_times'], dict_input['Remaining_robbery_times']]
 
         # 83-97: Các thẻ support trên bàn chơi
-        state_list += list(numpy.array(list(dict_input['Board'].support_cards.values())))
+        state_list += list(dict_input['Board'].support_cards.values())
 
         # Các thẻ support đã mua trong turn: 98 112
         temp = ['Wheat Field', 'Livestock Farm', 'Bakery', 'Cafe', 'Convenience Store', 'Forest', 'Stadium', 'TV Station', 'Business Complex',

@@ -1,7 +1,6 @@
 from colorama import Fore, Style
 import gym
 import random
-import numpy
 import json
 from gym_MachiKoro.envs.base.board import Board
 from gym_MachiKoro.envs.agents import agent_interface
@@ -51,15 +50,15 @@ class MachiKoro_Env(gym.Env):
         p_rint_horizontal_lines()
         k = 0
         for player in self.players:
-            print(player.name, numpy.array(list(player.important_land_cards.values())), player.coins, end=' ')
-            p_rint_array_card(numpy.array(list(player.support_cards.values())))
+            print(player.name, list(player.important_land_cards.values()), player.coins, end=' ')
+            p_rint_array_card(list(player.support_cards.values()))
             k += 1
             if k % 2 == 0:
                 print()
                 pass
         
         print('Board:', end=' ')
-        p_rint_array_card(numpy.array(list(self.board.support_cards.values())))
+        p_rint_array_card(list(self.board.support_cards.values()))
         print()
         pass
 
@@ -135,7 +134,7 @@ class MachiKoro_Env(gym.Env):
             elif self.phase == 'Card_shopping':
                 if type(action_player) == int:
                     action_player = self.__full_action[action_player]
-                    
+
                 self.card_shopping(action_player)
             else:
                 print(Fore.LIGHTRED_EX, f'Tên phase đang bị sai: {self.phase}'.upper(), Style.RESET_ALL)
@@ -144,7 +143,7 @@ class MachiKoro_Env(gym.Env):
             done = self.close()
             if done:
                 for player in self.players:
-                    if sum(numpy.array(list(player.important_land_cards.values()))) == 4:
+                    if sum(list(player.important_land_cards.values())) == 4:
                         self.p_name_victory = player.name
                         break
                 

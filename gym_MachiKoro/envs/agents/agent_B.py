@@ -12,7 +12,7 @@ class Agent(Player):
 
         list_action = self.get_list_index_action(self.get_list_state(dict_input))
 
-        print(list_action, 'action có thể làm')
+        # print(list_action, 'action có thể làm')
         action = random.choice(list_action)
         print(action, 'action chọn')
         victory = self.check_victory(self.get_list_state(dict_input))
@@ -27,5 +27,7 @@ class Agent(Player):
             pass
         
         print(Style.RESET_ALL)
+
+        # print(state)
 
         return action
