@@ -2,11 +2,13 @@ from copy import deepcopy
 import random
 import gym
 import gym_MachiKoro
+import time
 
+env = gym.make('gym_MachiKoro-v0')
 
 def main():
-    env = gym.make('gym_MachiKoro-v0')
     env.reset()
+    print([p.name for p in env.players])
     env.run_game()
 
     for i in range(1000):
@@ -14,7 +16,11 @@ def main():
         if done:
             break
 
-        if i % 100 == 99:
-            input()
+    for p in env.players:
+        p.action(deepcopy(env.dict_input))
 
-main()
+start = time.time()
+for i in range(1):
+    main()
+end = time.time()
+print(end - start)
