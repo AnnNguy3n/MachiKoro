@@ -36,8 +36,14 @@ class Agent(Player):
         t = self.get_list_state(state)
         a = self.get_list_index_action(t)
         action = random.choice(a)
-        if self.check_victory(t) == 1:
-            print(self.name, 'thắng')
-        elif self.check_victory(t) == 0:
-            print(self.name, 'Thua')
+        self.check_vtr(dict_input)
         return action
+    
+    def check_vtr(self, dict_input):
+        victory = self.check_victory(self.get_list_state(dict_input))
+        if victory == 1:
+            print(self.name, 'Thắng')
+            pass
+        elif victory == 0:
+            print(self.name, 'Thua')
+            pass
