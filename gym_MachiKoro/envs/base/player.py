@@ -18,14 +18,18 @@ class Player:
         temp = ['Wheat Field', 'Livestock Farm', 'Bakery', 'Cafe', 'Convenience Store', 'Forest', 'Stadium', 'TV Station', 'Business Complex',
                 'Cheese Factory', 'Furniture Factory', 'Mine', 'Family Restaurant', 'Apple Orchard', 'Vegetable Market']
 
-        self.__support_cards = {}
+        self.__support_cards = {
+            # tên thẻ: số lượng thẻ trên tay
+        }
         for name in temp:
             if name in ['Wheat Field', 'Bakery']:
                 self.__support_cards[name] = 1
             else: 
                 self.__support_cards[name] = 0
 
-        self.__support_cards_object = {}
+        self.__support_cards_object = {
+            # tên thẻ: object thẻ đó
+        }
         for name in temp:
             try:
                 income = int(data['income'][name])
@@ -36,11 +40,15 @@ class Player:
                                                             data['activated_from'][name], income, data['income_from'][name], data['income_times'][name], data['card_type_in_effect'][name])
 
         temp = ['Train Station', 'Shopping Mall', 'Amusement Park', 'Radio Tower']
-        self.__important_land_cards = {}
+        self.__important_land_cards = {
+            # tên thẻ: số lượng thẻ trên tay
+        }
         for name in temp:
             self.__important_land_cards[name] = 0
         
-        self.__important_land_cards_object = {}
+        self.__important_land_cards_object = {
+            # tên thẻ: object thẻ đó
+        }
         for name in temp:
             self.__important_land_cards_object[name] = Important_Land_Card(data['card_type'][name], name, int(data['price'][name]), data['description'][name])
 
@@ -259,17 +267,22 @@ class Player:
 
         return state_list
 
-    def action_space(self, dict_input: dict):
+    def action_space(self, dict_input: dict): # list
         if dict_input['Phase'] == 'End game':
+            # Dạng trả ra khi gặp pha này: 'Ngồi xem do đã hết ván game'
             return ['Ngồi xem do đã hết ván game']
 
         if dict_input['Phase'] == 'Choose number of dice':
+            # Dạng trả ra khi gặp pha này: 1 hoặc 2
             return [1,2]
 
         if dict_input['Phase'] == 'Re-roll?':
+            # Dạng trả ra khi gặp pha này: str 'Yes' or 'No'
             return ['Yes', 'No']
         
         if dict_input['Phase'] == 'Exchange':
+            # Dạng trả ra khi gặp pha này: (tên thẻ muốn đưa ra, tên thẻ muốn nhận, int)
+                # int: chỉ vị trí của người mình muốn đổi sau mình bao nhiêu vị trí
             list_exchange_option = []
             list_player_name = [player.name for player in dict_input['Player']]
             my_sp_cards = [name for name in self.support_cards.keys() if self.support_cards[name] != 0 and name not in ['Stadium', 'TV Station', 'Business Complex']]
@@ -285,9 +298,12 @@ class Player:
             return list_exchange_option
         
         if dict_input['Phase'] == 'Coin_robbery':
+            # Dạng trả ra khi gặp pha này: int
+            # int: chỉ vị trí của người mình muốn đổi sau mình bao nhiêu vị trí
             return [i for i in range(1, dict_input['Player'].__len__())]
         
         if dict_input['Phase'] == 'Card_shopping':
+            # Dạng trả ra khi gặp pha này: str (tên thẻ)
             list_card_name = [name for name in self.support_cards.keys() if self.coins >= self.support_cards_object[name].price
                             and name not in dict_input['Cards_bought'] and dict_input['Board'].support_cards[name] > 0]
             
