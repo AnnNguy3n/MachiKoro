@@ -286,7 +286,7 @@ class Player:
             list_exchange_option = []
             list_player_name = [player.name for player in dict_input['Player']]
             my_sp_cards = [name for name in self.support_cards.keys() if self.support_cards[name] != 0 and name not in ['Stadium', 'TV Station', 'Business Complex']]
-            for i in range(1, list_player_name.__len__() + 1):
+            for i in range(1, list_player_name.__len__()):
                 id_player = i
                 players_sp_cards = [name for name in self.support_cards.keys() if dict_input['Player'][id_player].support_cards[name] != 0 and name not in ['Stadium', 'TV Station', 'Business Complex']]
                 for k1 in my_sp_cards:
