@@ -23,11 +23,10 @@ def main():
             env.dict_input['Player'].append(env.players[(turn_id+i) % env.players.__len__()])
 
         p.action(deepcopy(env.dict_input))
+    return env.p_name_victory
 
 start = time.time()
-for i in range(1):
-    main()
+print(Counter(main() for i in range(10)))
     
-    # print([p.name for p in env.players])
 end = time.time()
 print(end - start)
