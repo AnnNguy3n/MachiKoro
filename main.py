@@ -10,7 +10,7 @@ def main():
     env.reset()
     env.run_game()
 
-    for i in range(1000):
+    for i in range(500):
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
         if done:
             break
