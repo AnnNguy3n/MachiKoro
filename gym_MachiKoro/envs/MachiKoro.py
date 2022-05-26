@@ -103,11 +103,11 @@ class MachiKoro_Env(gym.Env):
                     action_player = self.__full_action[action_player]
 
                 self.is_reroll = True
-                if action_player in ['No', 'no', 'NO']:
+                if action_player.upper() == 'NO':
                     print('Không re-roll')
                     self.process()
                     self.change_phase()
-                elif action_player in ['Yes', 'yes', 'YES']:
+                elif action_player.upper() == 'YES':
                     print('Có re-roll')
                     if self.turn.important_land_cards['Train Station'] == 1:
                         self.set_phase('Choose number of dice')
@@ -201,6 +201,23 @@ class MachiKoro_Env(gym.Env):
                             self.turn._Player__support_cards_object[key]._Support_Card__income += 1
 
                     print("Các thẻ loại 'F&B Service' và 'Store' của", self.turn.name, "đã được tăng 1 đồng phần thưởng")
+
+                # Xem người chơi có đủ tiền mua thẻ rẻ nhất trên bàn không, nếu không thì skip turn luôn cho nhanh
+                temp = ['Wheat Field', 'Livestock Farm', 'Bakery', 'Cafe', 'Convenience Store', 'Forest', 'Stadium', 'TV Station', 'Business Complex',
+                'Cheese Factory', 'Furniture Factory', 'Mine', 'Family Restaurant', 'Apple Orchard', 'Vegetable Market']
+                
+                min_ = 0
+                sp_chua_mua = [name for name in temp if name not in self.dict_input['Cards_bought'] and self.board.support_cards[name] != 0]
+                im_land_chua_mua = [name for name in self.turn.important_land_cards.keys() if self.turn.important_land_cards[name] == 0]
+                price_sp = [self.board.support_cards_object[name].price for name in sp_chua_mua]
+                price_im_land = [self.turn.important_land_cards_object[name].price for name in im_land_chua_mua]
+                try:
+                    min_ = min(price_im_land + price_sp)
+                except:
+                    min_ = 0
+
+                if self.turn.coins < min_:
+                    self.end_turn()
         
         elif name == '' or name == None:
             self.end_turn()
