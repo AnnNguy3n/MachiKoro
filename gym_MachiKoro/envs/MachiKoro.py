@@ -275,6 +275,24 @@ class MachiKoro_Env(gym.Env):
         self.phase = self.phases.pop(0)
         self.dict_input['Phase'] = self.phase
 
+        if self.phase == 'Card_shopping':
+            # Xem người chơi có đủ tiền mua thẻ rẻ nhất trên bàn không, nếu không thì skip turn luôn cho nhanh
+            temp = ['Wheat Field', 'Livestock Farm', 'Bakery', 'Cafe', 'Convenience Store', 'Forest', 'Stadium', 'TV Station', 'Business Complex',
+                'Cheese Factory', 'Furniture Factory', 'Mine', 'Family Restaurant', 'Apple Orchard', 'Vegetable Market']
+                
+            min_ = 0
+            sp_chua_mua = [name for name in temp if name not in self.dict_input['Cards_bought'] and self.board.support_cards[name] != 0]
+            im_land_chua_mua = [name for name in self.turn.important_land_cards.keys() if self.turn.important_land_cards[name] == 0]
+            price_sp = [self.board.support_cards_object[name].price for name in sp_chua_mua]
+            price_im_land = [self.turn.important_land_cards_object[name].price for name in im_land_chua_mua]
+            try:
+                min_ = min(price_im_land + price_sp)
+            except:
+                min_ = 0
+
+            if self.turn.coins < min_:
+                self.end_turn()
+
     def process(self):
         try:
             value_of_dice = sum(self.value_of_dice)
