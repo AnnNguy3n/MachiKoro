@@ -8,7 +8,7 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
-        # prnt
+        
         action_space = self.action_space(dict_input)
         action = random.choice(action_space)
         state = self.get_list_state(dict_input)
