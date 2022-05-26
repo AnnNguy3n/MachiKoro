@@ -39,14 +39,17 @@ class MachiKoro_Env(gym.Env):
 
         self.dict_input = {
             'Board': self.board,
-            'Player': self.players,
-            'Turn_id': self.players.index(self.turn),
+            'Player': [],
             'Phase': self.phase,
             'Cards_bought': [],
             'Remaining_exchange_times': 0,
             'Remaining_robbery_times': 0
         }
-    
+
+        turn_id = self.players.index(self.turn)
+        for i in range(1, self.players.__len__()):
+            self.dict_input['Player'].append(self.players[(turn_id+i) % self.players.__len__()])
+        
     def render(self, mode='human', close=False):
         p_rint_horizontal_lines()
         k = 0
@@ -62,7 +65,7 @@ class MachiKoro_Env(gym.Env):
         p_rint_array_card(list(self.board.support_cards.values()))
         print()
         pass
-
+    
     def close(self):
         for player in self.players:
             if sum(player.important_land_cards.values()) == 4:
@@ -153,7 +156,7 @@ class MachiKoro_Env(gym.Env):
                 self.end_turn()
                     
             return self, None, done, None
-
+    
     def run_game(self):
         self.render()
         print('Đến lượt của:', self.turn.name)
@@ -166,7 +169,7 @@ class MachiKoro_Env(gym.Env):
             else:
                 self.process()
                 self.change_phase()
-    
+
     def card_shopping(self, name: str):
         if name in self.dict_input['Cards_bought']:
             print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do đã mua rồi".upper(), Style.RESET_ALL)
@@ -231,7 +234,6 @@ class MachiKoro_Env(gym.Env):
 
     def end_turn(self):
         self.dict_input['Cards_bought'] = []
-        self.dict_input['Turn_id'] = (self.dict_input['Turn_id'] + 1) % 4
         self.is_reroll = False
         self.value_of_dice = None
         if self.bonus_turn:
@@ -239,7 +241,11 @@ class MachiKoro_Env(gym.Env):
             self.run_game()
         else:
             indexx = self.players.index(self.turn)
-            self.turn = self.players[(indexx+1) % self.players.__len__()]
+            turn_id = (indexx + 1) % self.players.__len__()
+            self.turn = self.players[turn_id]
+            self.dict_input['Player'] = []
+            for i in range(1, self.players.__len__()):
+                self.dict_input['Player'].append(self.players[(turn_id+i) % self.players.__len__()])
             self.run_game()
 
     def coin_robbery(self, _id: int):
@@ -274,7 +280,7 @@ class MachiKoro_Env(gym.Env):
         
         self.dict_input['Remaining_exchange_times'] -= 1
         self.change_phase()
-    
+
     def change_phase(self):
         self.phase = self.phases.pop(0)
         self.dict_input['Phase'] = self.phase

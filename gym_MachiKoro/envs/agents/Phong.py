@@ -18,7 +18,7 @@ class Agent(Player):
         print('Số tiền đang có:', self.coins)
         print('action_space', a_s)
         # print('important card', self.important_land_cards)
-        my_id = dict_input['Turn_id']
+        # my_id = dict_input['Turn_id']
         # print([p.support_cards for p in dict_input['Player']])
         dict_card = {}
         for card in self.support_cards_object:
@@ -50,13 +50,14 @@ class Agent(Player):
             list_name = [p for p in dict_input['Player']]
             list_coins = [p.coins for p in dict_input['Player']]
             print([p.name for p in dict_input['Player']])
-            for i in range(1, 4):
-                p_id_with_me = int((my_id + i)%4)
-                p_id = (my_id + p_id_with_me)%4
-                print(p_id_with_me, p_id)
-                if list_coins[p_id] == max(list_coins):
-                    print(p_id, list_name[p_id].name)
-                    return p_id_with_me
+            # for i in range(1, 4):
+            #     p_id_with_me = int((my_id + i)%4)
+            #     p_id = (my_id + p_id_with_me)%4
+            #     print(p_id_with_me, p_id)
+            #     if list_coins[p_id] == max(list_coins):
+            #         print(p_id, list_name[p_id].name)
+            #         return p_id_with_me
+            pass
         elif dict_input['Phase'] == 'Exchange':
             # print([p.support_cards for p in dict_input['Player']])
             pass

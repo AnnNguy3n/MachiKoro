@@ -8,7 +8,9 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
-        print(dict_input['Turn_id'], 'Turn_id')
+        print(self.name, end=', ')
+        print([p.name for p in dict_input['Player']])
+        # print(dict_input['Turn_id'], 'Turn_id')
         # print(dict_input['Phase'])
         # print(self.action_space(dict_input))
         # print('#################################################################')
@@ -21,16 +23,17 @@ class Agent(Player):
         print(action, 'action chọn')
         victory = self.check_victory(self.get_list_state(dict_input))
         if victory == 1:
-            print(Fore.LIGHTYELLOW_EX + self.name + ' thắng', end='')
+            print(Fore.LIGHTYELLOW_EX + self.name + ' thắng', dict_input['Turn_id'], end='')
+            print(Style.RESET_ALL)
             pass
         elif victory == 0:
-            print(Fore.LIGHTYELLOW_EX + self.name + ' thua', end='')
+            print(Fore.LIGHTYELLOW_EX + self.name + ' thua', dict_input['Turn_id'], end='')
+            print(Style.RESET_ALL)
             pass
         elif victory == -1:
-            print(Fore.LIGHTYELLOW_EX + 'Chưa hết game', end='')
+            # print(Fore.LIGHTYELLOW_EX + 'Chưa hết game', end='')
+            # print(Style.RESET_ALL)
             pass
-        
-        print(Style.RESET_ALL)
 
         # print(state)
 
