@@ -231,7 +231,6 @@ class MachiKoro_Env(gym.Env):
 
     def end_turn(self):
         self.dict_input['Cards_bought'] = []
-        self.dict_input['Turn_id'] = (self.dict_input['Turn_id'] + 1) % 4
         self.is_reroll = False
         self.value_of_dice = None
         if self.bonus_turn:
@@ -239,6 +238,7 @@ class MachiKoro_Env(gym.Env):
             self.run_game()
         else:
             indexx = self.players.index(self.turn)
+            self.dict_input['Turn_id'] = (indexx + 1) % 4
             self.turn = self.players[(indexx+1) % self.players.__len__()]
             self.run_game()
 

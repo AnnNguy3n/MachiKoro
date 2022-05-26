@@ -8,21 +8,23 @@ env = gym.make('gym_MachiKoro-v0')
 
 def main():
     env.reset()
-    print([p.name for p in env.players])
     env.run_game()
 
     for i in range(1000):
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
         if done:
             break
-        
-        # input()
-
-    for i in range(4):
-        o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
+    
+    k = 0
+    for p in env.players:
+        env.dict_input['Turn_id'] = k
+        p.action(deepcopy(env.dict_input))
+        k += 1
 
 start = time.time()
 for i in range(1):
     main()
+    
+    print([p.name for p in env.players])
 end = time.time()
 print(end - start)
