@@ -214,8 +214,8 @@ class Player:
         state_list += [self.coins]
         
         # 20 - 79: Các thẻ vùng đất và hỗ trợ của đối thủ, tiền, theo góc nhìn của bản thân
-        for i in range(1, list_p_name.__len__() + 1):
-            id_player = i-1
+        for i in range(1, list_p_name.__len__()):
+            id_player = i
             state_list += list(dict_input['Player'][id_player].important_land_cards.values())
             state_list += list(dict_input['Player'][id_player].support_cards.values())
             state_list += [dict_input['Player'][id_player].coins]
@@ -287,7 +287,7 @@ class Player:
             list_player_name = [player.name for player in dict_input['Player']]
             my_sp_cards = [name for name in self.support_cards.keys() if self.support_cards[name] != 0 and name not in ['Stadium', 'TV Station', 'Business Complex']]
             for i in range(1, list_player_name.__len__() + 1):
-                id_player = -1
+                id_player = i
                 players_sp_cards = [name for name in self.support_cards.keys() if dict_input['Player'][id_player].support_cards[name] != 0 and name not in ['Stadium', 'TV Station', 'Business Complex']]
                 for k1 in my_sp_cards:
                     for k2 in players_sp_cards:
@@ -300,7 +300,7 @@ class Player:
         if dict_input['Phase'] == 'Coin_robbery':
             # Dạng trả ra khi gặp pha này: int
             # int: chỉ vị trí của người mình muốn đổi sau mình bao nhiêu vị trí
-            return [i for i in range(1, dict_input['Player'].__len__()) + 1]
+            return [i for i in range(1, dict_input['Player'].__len__())]
         
         if dict_input['Phase'] == 'Card_shopping':
             # Dạng trả ra khi gặp pha này: str (tên thẻ)
