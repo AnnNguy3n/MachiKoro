@@ -39,7 +39,7 @@ class MachiKoro_Env(gym.Env):
 
         self.dict_input = {
             'Board': self.board,
-            'Player': [],
+            'Player': [self.turn],
             'Phase': self.phase,
             'Cards_bought': [],
             'Remaining_exchange_times': 0,
@@ -243,7 +243,7 @@ class MachiKoro_Env(gym.Env):
             indexx = self.players.index(self.turn)
             turn_id = (indexx + 1) % self.players.__len__()
             self.turn = self.players[turn_id]
-            self.dict_input['Player'] = []
+            self.dict_input['Player'] = [self.turn]
             for i in range(1, self.players.__len__()):
                 self.dict_input['Player'].append(self.players[(turn_id+i) % self.players.__len__()])
             self.run_game()
