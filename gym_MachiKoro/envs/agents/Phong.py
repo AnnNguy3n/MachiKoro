@@ -15,14 +15,15 @@ class Agent(Player):
         a_s = self.action_space(dict_input)
         print('****************************************************************************************')
         # print('card đã mua', self.support_cards)
-        print('Số tiền đang có:********', self.coins)
+        print('Số tiền đang có:', self.coins)
         print('action_space', a_s)
         # print('important card', self.important_land_cards)
-        print(dict_input.keys())
+        my_id = dict_input['Turn_id']
+        # print([p.support_cards for p in dict_input['Player']])
         dict_card = {}
         for card in self.support_cards_object:
             dict_card[card] = [self.support_cards_object[card].value_to_activate, self.support_cards_object[card].price, self.support_cards_object[card].income, self.support_cards_object[card].income_from, self.support_cards_object[card].income_times, self.support_cards_object[card].card_type_in_effect, self.support_cards[card]]
-        print(dict_card)
+        # print(dict_card)
         if dict_input['Phase'] == 'Card_shopping':
             print(dict_input['Phase'])
             if len(a_s) > 1:
@@ -32,13 +33,11 @@ class Agent(Player):
                     print('list_action', a)
                     for card in a_s[-1:0]:
                         if dict_card[card][0][0] > 0 and dict_card[card][0][0] <= 6:
-                            if card != 'TV Station' and card != 'Business Complex':
-                                return card
+                            return card
                 else:
                     for card in a_s[0:-1]:
                         if dict_card[card][0][0] > 1:
-                            if card != 'TV Station' and card != 'Business Complex':
-                                return card
+                            return card
         elif dict_input['Phase'] == 'Choose number of dice':
             for card in dict_card:
                 if dict_card[card][0][0] > 6 and dict_card[card][6]:
@@ -46,9 +45,24 @@ class Agent(Player):
             return 1
         elif dict_input['Phase'] == 'Re-roll?':
             return 'No'
-        else: 
-            raise ValueError("Arrays must have the same size")
-            print('hihihihihihiihihihihihihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+        elif dict_input['Phase'] == 'Coin_robbery':
+            print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+            list_name = [p for p in dict_input['Player']]
+            list_coins = [p.coins for p in dict_input['Player']]
+            print([p.name for p in dict_input['Player']])
+            for i in range(1, 4):
+                p_id_with_me = int((my_id + i)%4)
+                p_id = (my_id + p_id_with_me)%4
+                print(p_id_with_me, p_id)
+                if list_coins[p_id] == max(list_coins):
+                    print(p_id, list_name[p_id].name)
+                    return p_id_with_me
+        elif dict_input['Phase'] == 'Exchange':
+            # print([p.support_cards for p in dict_input['Player']])
+            pass
+        # else:
+        #     raise ValueError("Arrays must have the same size")
+        #     print('hihihihihihiihihihihihihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
         
         
         action = random.choice(a)

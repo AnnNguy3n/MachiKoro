@@ -12,7 +12,8 @@ def main():
     print([p.name for p in env.players])
     env.run_game()
 
-    for i in range(100):
+    for i in range(1000):
+        print(i)
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
         if done:
             break
@@ -21,6 +22,7 @@ def main():
 
     for i in range(4):
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
+    return env.p_name_victory
 
 start = time.time()
 print(Counter(main() for i in range(1)))
