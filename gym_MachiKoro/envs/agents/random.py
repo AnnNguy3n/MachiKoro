@@ -36,7 +36,7 @@ class Agent(Player):
         t = self.get_list_state(state)
         a = self.get_list_index_action(t)
         action = random.choice(a)
-        self.check_vtr(dict_input)
+        # self.check_vtr(dict_input)
         return action
     
     def check_vtr(self, dict_input):

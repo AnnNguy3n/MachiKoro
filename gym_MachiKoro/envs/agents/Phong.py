@@ -9,22 +9,52 @@ class Agent(Player):
     def __init__(self, name):
         super().__init__(name)
     def action(self, dict_input):
-        dict_card = {}
-        for card in dict_input['Turn_player_cards']:
-            dict_card[card] = card.score
-
-        dict_card = dict(sorted(dict_card.items(), key = lambda item:item[1]))
-        for i in dict_card:
-            print(i.name, dict_card[i], 'stt :', i.stt)
-
-        action_space = self.action_space(dict_input['Turn_player_cards'], dict_input['Board'].turn_cards, dict_input['Board'].turn_cards_owner)
-        print(action_space)
-        self.check_vtr(dict_input)
-        state = dict_input
-        t = self.get_list_state(state)
+        t = self.get_list_state(dict_input)
         a = self.get_list_index_action(t)
+        # print(dict_input['Phase'])
+        a_s = self.action_space(dict_input)
+        print('****************************************************************************************')
+        # print('card đã mua', self.support_cards)
+        print('Số tiền đang có:********', self.coins)
+        print('action_space', a_s)
+        # print('important card', self.important_land_cards)
+        print(dict_input.keys())
+        dict_card = {}
+        for card in self.support_cards_object:
+            dict_card[card] = [self.support_cards_object[card].value_to_activate, self.support_cards_object[card].price, self.support_cards_object[card].income, self.support_cards_object[card].income_from, self.support_cards_object[card].income_times, self.support_cards_object[card].card_type_in_effect, self.support_cards[card]]
+        print(dict_card)
+        if dict_input['Phase'] == 'Card_shopping':
+            print(dict_input['Phase'])
+            if len(a_s) > 1:
+                if a_s[-2] in self.important_land_cards.keys():
+                    return a_s[-2]
+                if self.important_land_cards['Train Station'] == 0:
+                    print('list_action', a)
+                    for card in a_s[-1:0]:
+                        if dict_card[card][0][0] > 0 and dict_card[card][0][0] <= 6:
+                            if card != 'TV Station' and card != 'Business Complex':
+                                return card
+                else:
+                    for card in a_s[0:-1]:
+                        if dict_card[card][0][0] > 1:
+                            if card != 'TV Station' and card != 'Business Complex':
+                                return card
+        elif dict_input['Phase'] == 'Choose number of dice':
+            for card in dict_card:
+                if dict_card[card][0][0] > 6 and dict_card[card][6]:
+                    return 2
+            return 1
+        elif dict_input['Phase'] == 'Re-roll?':
+            return 'No'
+        else: 
+            raise ValueError("Arrays must have the same size")
+            print('hihihihihihiihihihihihihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+        
+        
         action = random.choice(a)
+        self.check_vtr(dict_input)
         return action
+
 
     def check_vtr(self, dict_input):
         victory = self.check_victory(self.get_list_state(dict_input))

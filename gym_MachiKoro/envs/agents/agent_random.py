@@ -18,6 +18,7 @@ class Agent(Player):
         self.state_new.append(t)
         self.action_new.append(action)
         # print(self.state_new, self.action_new)
+        
         if self.check_victory(t) == 1:
             print(self.name, 'thắng')
             self.save_json(self.state_new, self.action_new)

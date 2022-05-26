@@ -7,3 +7,12 @@ Các loại thẻ:
     - Industry: công nghiệp, tương ứng với các thẻ 'rừng' và 'khu mỏ quặng', biểu tượng là bánh răng
     - Factory: nhà máy, tương ứng với các thẻ 'nhà máy pho mát' và 'nhà máy nội thất', biểu tượng là lưỡi cưa
     - Market: chợ, ứng với thẻ 'chợ trái cây và rau củ', biểu tượng là quả cam có 2 lá
+
+
+    - Dict_input:
+        - Board:
+            -
+        - Player
+        - Phase:
+        - Card_bought: 
+        - 
