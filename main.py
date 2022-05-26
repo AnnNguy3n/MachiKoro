@@ -15,9 +15,11 @@ def main():
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
         if done:
             break
+        
+        # input()
 
-    for p in env.players:
-        p.action(deepcopy(env.dict_input))
+    for i in range(4):
+        o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
 
 start = time.time()
 for i in range(1):

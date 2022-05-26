@@ -8,6 +8,7 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
+        print(dict_input['Turn_id'], 'Turn_id')
         # print(dict_input['Phase'])
         # print(self.action_space(dict_input))
         # print('#################################################################')

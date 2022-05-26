@@ -40,6 +40,7 @@ class MachiKoro_Env(gym.Env):
         self.dict_input = {
             'Board': self.board,
             'Player': self.players,
+            'Turn_id': self.players.index(self.turn),
             'Phase': self.phase,
             'Cards_bought': [],
             'Remaining_exchange_times': 0,
@@ -71,6 +72,7 @@ class MachiKoro_Env(gym.Env):
 
     def step(self, action_player):
         if self.close():
+            self.end_turn()
             return self, None, True, None
         
         else:
@@ -148,6 +150,7 @@ class MachiKoro_Env(gym.Env):
                         break
                 
                 self.set_phase('End game')
+                self.end_turn()
                     
             return self, None, done, None
 
@@ -228,6 +231,7 @@ class MachiKoro_Env(gym.Env):
 
     def end_turn(self):
         self.dict_input['Cards_bought'] = []
+        self.dict_input['Turn_id'] = (self.dict_input['Turn_id'] + 1) % 4
         self.is_reroll = False
         self.value_of_dice = None
         if self.bonus_turn:
