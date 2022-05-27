@@ -262,6 +262,7 @@ class MachiKoro_Env(gym.Env):
         id_player = (self.players.index(self.turn) + _id) % self.players.__len__()
         if card_give == '' or card_receive == '':
             print(Fore.LIGHTYELLOW_EX, self.turn.name, 'không thực hiện trao đổi'.upper(), Style.RESET_ALL)
+            raise ValueError("265")
             input()
             pass
         elif card_give in ['Stadium', 'TV Station', 'Business Complex'] or card_receive in ['Stadium', 'TV Station', 'Business Complex']:
@@ -270,6 +271,7 @@ class MachiKoro_Env(gym.Env):
         else:
             if self.turn.support_cards[card_give] == 0 or self.players[id_player].support_cards[card_receive] == 0:
                 print(Fore.LIGHTRED_EX, self.turn.name, 'lỗi không có thẻ để trao đổi'.upper(), Style.RESET_ALL)
+                raise ValueError("273")
                 pass
             else:
                 self.turn._Player__support_cards[card_give] -= 1
