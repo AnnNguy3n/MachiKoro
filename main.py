@@ -25,6 +25,7 @@ def main():
         p.action(deepcopy(env.dict_input))
         # if env.p_name_victory != 'Phong':
             # raise ValueError("265")
+    print(env.p_name_victory)
     return env.p_name_victory
 
 start = time.time()
