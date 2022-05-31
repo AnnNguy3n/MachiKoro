@@ -162,6 +162,8 @@ class Agent(Player):
         list_reward = [0]*12
         for card in all_card_support:
             mul = number_card_support[all_card_support.index(card)]
+            if card.name == 'Business Complex':
+                continue
             if card.activated_from in ['Anyone', 'You']:
                 for idx in range(0,12):
                     if idx + 1 in card.value_to_activate:
