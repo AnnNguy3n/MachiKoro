@@ -265,6 +265,9 @@ class Player:
         
         state_list += t_e_m_p
 
+        # Giá trị của xúc xắc
+        state_list += [dict_input['Value_of_dice']]
+
         return state_list
 
     def action_space(self, dict_input: dict): # list

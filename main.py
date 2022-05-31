@@ -20,6 +20,8 @@ def main():
         env.dict_input['Player'] = [p]
         for i in range(1, env.players.__len__()):
             env.dict_input['Player'].append(env.players[(turn_id+i) % env.players.__len__()])
+        
+        env.dict_input['Value_of_dice'] = 0
 
         p.action(deepcopy(env.dict_input))
 

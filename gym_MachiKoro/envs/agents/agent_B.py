@@ -8,6 +8,7 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
+        print(self.get_list_state(dict_input))
         # print(self.name, end=', ')
         # print([p.name for p in dict_input['Player']])
         # print(dict_input['Turn_id'], 'Turn_id')

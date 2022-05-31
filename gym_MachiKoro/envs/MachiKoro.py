@@ -397,8 +397,11 @@ class MachiKoro_Env(gym.Env):
             self.value_of_dice = random.randint(1,6), random.randint(1,6)
         else:
             self.value_of_dice = None
-        
-        self.dict_input['Value_of_dice'] = self.value_of_dice
+        try:
+            self.dict_input['Value_of_dice'] = sum(self.value_of_dice)
+        except:
+            self.dict_input['Value_of_dice'] = self.value_of_dice
+            
         print('Giá trị xúc xắc:', self.value_of_dice)
 
     def set_phase(self, phase: str):
