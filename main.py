@@ -28,7 +28,7 @@ def main():
     return env.p_name_victory
 
 start = time.time()
-print(Counter(main() for i in range(100)))
+print(Counter(main() for i in range(1)))
     
 end = time.time()
 print(end - start)

@@ -1,7 +1,7 @@
-from gym_MachiKoro.envs.agents import Phong3 as p1
-from gym_MachiKoro.envs.agents import random as p2
-from gym_MachiKoro.envs.agents import random as p3
-from gym_MachiKoro.envs.agents import random as p4
+from gym_MachiKoro.envs.agents import S_a as p1
+from gym_MachiKoro.envs.agents import S_a as p2
+from gym_MachiKoro.envs.agents import S_a as p3
+from gym_MachiKoro.envs.agents import S_a as p4
 
 # from gym_MachiKoro.envs.agents import Phong as p1
 # from gym_MachiKoro.envs.agents import Phong as p2
