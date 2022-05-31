@@ -41,6 +41,7 @@ class MachiKoro_Env(gym.Env):
             'Board': self.board,
             'Player': [self.turn],
             'Phase': self.phase,
+            'Value_of_dice': -1,
             'Cards_bought': [],
             'Remaining_exchange_times': 0,
             'Remaining_robbery_times': 0
@@ -398,7 +399,8 @@ class MachiKoro_Env(gym.Env):
         else:
             self.value_of_dice = None
         
-        # 1print('Giá trị xúc xắc:', self.value_of_dice)
+        self.dict_input['Value_of_dice'] = self.value_of_dice
+        print('Giá trị xúc xắc:', self.value_of_dice)
 
     def set_phase(self, phase: str):
         self.phase = phase
