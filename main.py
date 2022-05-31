@@ -23,10 +23,12 @@ def main():
             env.dict_input['Player'].append(env.players[(turn_id+i) % env.players.__len__()])
 
         p.action(deepcopy(env.dict_input))
+        # if env.p_name_victory != 'Phong':
+            # raise ValueError("265")
     return env.p_name_victory
 
 start = time.time()
-print(Counter(main() for i in range(10)))
+print(Counter(main() for i in range(100)))
     
 end = time.time()
 print(end - start)

@@ -6,11 +6,11 @@ from gym_MachiKoro.envs.base.board import Board
 from gym_MachiKoro.envs.agents import agent_interface
 
 def p_rint_horizontal_lines():
-    print('----------------------------------------------------------------------------------------------------')
+    # 1print('----------------------------------------------------------------------------------------------------')
     pass
 
 def p_rint_array_card(_arr):
-    print(Fore.LIGHTBLUE_EX + str(_arr[0]), _arr[1], Fore.LIGHTGREEN_EX + str(_arr[2]), Fore.LIGHTRED_EX + str(_arr[3]), Fore.LIGHTGREEN_EX + str(_arr[4]), Fore.LIGHTBLUE_EX + str(_arr[5]), Fore.LIGHTMAGENTA_EX + str(_arr[6]), _arr[7], _arr[8], Fore.LIGHTGREEN_EX + str(_arr[9]), _arr[10], Fore.LIGHTBLUE_EX + str(_arr[11]), Fore.LIGHTRED_EX + str(_arr[12]), Fore.LIGHTBLUE_EX + str(_arr[13]), Fore.LIGHTGREEN_EX + str(_arr[14]), Style.RESET_ALL, end='')
+    # 1print(Fore.LIGHTBLUE_EX + str(_arr[0]), _arr[1], Fore.LIGHTGREEN_EX + str(_arr[2]), Fore.LIGHTRED_EX + str(_arr[3]), Fore.LIGHTGREEN_EX + str(_arr[4]), Fore.LIGHTBLUE_EX + str(_arr[5]), Fore.LIGHTMAGENTA_EX + str(_arr[6]), _arr[7], _arr[8], Fore.LIGHTGREEN_EX + str(_arr[9]), _arr[10], Fore.LIGHTBLUE_EX + str(_arr[11]), Fore.LIGHTRED_EX + str(_arr[12]), Fore.LIGHTBLUE_EX + str(_arr[13]), Fore.LIGHTGREEN_EX + str(_arr[14]), Style.RESET_ALL, end='')
 
     pass
 
@@ -54,16 +54,16 @@ class MachiKoro_Env(gym.Env):
         p_rint_horizontal_lines()
         k = 0
         for player in self.players:
-            print(player.name, list(player.important_land_cards.values()), player.coins, end=' ')
+            # 1print(player.name, list(player.important_land_cards.values()), player.coins, end=' ')
             p_rint_array_card(list(player.support_cards.values()))
             k += 1
             if k % 2 == 0:
-                print()
+                # 1print()
                 pass
         
-        print('Board:', end=' ')
+        # 1print('Board:', end=' ')
         p_rint_array_card(list(self.board.support_cards.values()))
-        print()
+        # 1print()
         pass
     
     def close(self):
@@ -86,14 +86,14 @@ class MachiKoro_Env(gym.Env):
                     action_player = self.__full_action[action_player]
 
                 if action_player not in [1,2]:
-                    print(Fore.LIGHTRED_EX, self.turn.name, f'trả action sai: {action_player}')
+                    # 1print(Fore.LIGHTRED_EX, self.turn.name, f'trả action sai: {action_player}')
                     self.end_turn()
                 else:
                     self.roll_the_dice(action_player)
                     if type(self.value_of_dice) == tuple and self.value_of_dice[0] == self.value_of_dice[1]\
                         and self.turn.important_land_cards['Amusement Park'] == 1:
                         self.bonus_turn = True
-                        print(self.turn.name, 'sẽ được thêm lượt nếu chấp nhận kết quả đổ xúc xắc')
+                        # 1print(self.turn.name, 'sẽ được thêm lượt nếu chấp nhận kết quả đổ xúc xắc')
                     else:
                         self.bonus_turn = False
                     
@@ -109,11 +109,11 @@ class MachiKoro_Env(gym.Env):
 
                 self.is_reroll = True
                 if action_player.upper() == 'NO':
-                    print('Không re-roll')
+                    # 1print('Không re-roll')
                     self.process()
                     self.change_phase()
                 elif action_player.upper() == 'YES':
-                    print('Có re-roll')
+                    # 1print('Có re-roll')
                     if self.turn.important_land_cards['Train Station'] == 1:
                         self.set_phase('Choose number of dice')
                     else:
@@ -121,7 +121,7 @@ class MachiKoro_Env(gym.Env):
                         self.process()
                         self.change_phase()
                 else:
-                    print(Fore.LIGHTRED_EX, self.turn.name, f'trả action sai: {action_player}')
+                    # 1print(Fore.LIGHTRED_EX, self.turn.name, f'trả action sai: {action_player}')
                     self.end_turn()
             
             elif self.phase == 'Exchange':
@@ -142,7 +142,7 @@ class MachiKoro_Env(gym.Env):
 
                 self.card_shopping(action_player)
             else:
-                print(Fore.LIGHTRED_EX, f'Tên phase đang bị sai: {self.phase}'.upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, f'Tên phase đang bị sai: {self.phase}'.upper(), Style.RESET_ALL)
                 input()
 
             done = self.close()
@@ -159,7 +159,7 @@ class MachiKoro_Env(gym.Env):
     
     def run_game(self):
         self.render()
-        print('Đến lượt của:', self.turn.name)
+        # 1print('Đến lượt của:', self.turn.name)
         if self.turn.important_land_cards['Train Station'] == 1:
             self.set_phase('Choose number of dice')
         else:
@@ -172,41 +172,41 @@ class MachiKoro_Env(gym.Env):
 
     def card_shopping(self, name: str):
         if name in self.dict_input['Cards_bought']:
-            print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do đã mua rồi".upper(), Style.RESET_ALL)
+            # 1print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do đã mua rồi".upper(), Style.RESET_ALL)
             self.end_turn()
 
         elif name in self.board.support_cards_object.keys():
             if self.turn.coins < self.board.support_cards_object[name].price:
-                print(Fore.LIGHTRED_EX, self.turn.name, f"lỗi không đủ tiền mua thẻ '{name}'".upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, self.turn.name, f"lỗi không đủ tiền mua thẻ '{name}'".upper(), Style.RESET_ALL)
                 self.end_turn()
             elif self.board.support_cards[name] == 0:
-                print(Fore.LIGHTRED_EX, self.turn.name, f"thẻ '{name}' đã hết".upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, self.turn.name, f"thẻ '{name}' đã hết".upper(), Style.RESET_ALL)
                 self.end_turn()
             else:
                 self.turn._Player__coins -= self.board.support_cards_object[name].price
                 self.turn._Player__support_cards[name] += 1
                 self.board._Board__support_cards[name] -= 1
-                print(self.turn.name, f"đã mua thẻ '{name}'")
+                # 1print(self.turn.name, f"đã mua thẻ '{name}'")
                 self.dict_input['Cards_bought'].append(name)
         
         elif name in self.turn.important_land_cards.keys():
             if self.turn.coins < self.turn.important_land_cards_object[name].price:
-                print(Fore.LIGHTRED_EX, self.turn.name, f"lỗi không đủ tiền mua thẻ '{name}'".upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, self.turn.name, f"lỗi không đủ tiền mua thẻ '{name}'".upper(), Style.RESET_ALL)
                 self.end_turn()
             elif self.turn.important_land_cards[name] == 1:
-                print(Fore.LIGHTRED_EX, self.turn.name, f"đã mở công trình '{name}' từ trước đó".upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, self.turn.name, f"đã mở công trình '{name}' từ trước đó".upper(), Style.RESET_ALL)
                 self.end_turn()
             else:
                 self.turn._Player__coins -= self.turn.important_land_cards_object[name].price
                 self.turn._Player__important_land_cards[name] = 1
-                print(self.turn.name, f"đã mở công trình '{name}'")
+                # 1print(self.turn.name, f"đã mở công trình '{name}'")
                 self.dict_input['Cards_bought'].append(name)
                 if name == 'Shopping Mall':
                     for key in self.turn.support_cards.keys():
                         if self.turn.support_cards_object[key].card_type in ['F&B Service', 'Store']:
                             self.turn._Player__support_cards_object[key]._Support_Card__income += 1
 
-                    print("Các thẻ loại 'F&B Service' và 'Store' của", self.turn.name, "đã được tăng 1 đồng phần thưởng")
+                    # 1print("Các thẻ loại 'F&B Service' và 'Store' của", self.turn.name, "đã được tăng 1 đồng phần thưởng")
 
                 # Xem người chơi có đủ tiền mua thẻ rẻ nhất trên bàn không, nếu không thì skip turn luôn cho nhanh
                 temp = ['Wheat Field', 'Livestock Farm', 'Bakery', 'Cafe', 'Convenience Store', 'Forest', 'Stadium', 'TV Station', 'Business Complex',
@@ -229,7 +229,7 @@ class MachiKoro_Env(gym.Env):
             self.end_turn()
 
         else:
-            print(Fore.LIGHTRED_EX, self.turn.name, f"thẻ không tồn tại: {name}".upper(), Style.RESET_ALL)
+            # 1print(Fore.LIGHTRED_EX, self.turn.name, f"thẻ không tồn tại: {name}".upper(), Style.RESET_ALL)
             self.end_turn()
 
     def end_turn(self):
@@ -253,7 +253,7 @@ class MachiKoro_Env(gym.Env):
         number = min(5, self.players[id_player].coins)
         self.turn._Player__coins += number
         self.players[id_player]._Player__coins -= number
-        print(self.turn.name, f'lấy {number} đồng của', self.players[id_player].name)
+        # 1print(self.turn.name, f'lấy {number} đồng của', self.players[id_player].name)
 
         self.dict_input['Remaining_robbery_times'] -= 1
         self.change_phase()
@@ -261,16 +261,15 @@ class MachiKoro_Env(gym.Env):
     def exchange_card(self, card_give: str, card_receive: str, _id: int):
         id_player = (self.players.index(self.turn) + _id) % self.players.__len__()
         if card_give == '' or card_receive == '':
-            print(Fore.LIGHTYELLOW_EX, self.turn.name, 'không thực hiện trao đổi'.upper(), Style.RESET_ALL)
-            raise ValueError("265")
+            # 1print(Fore.LIGHTYELLOW_EX, self.turn.name, 'không thực hiện trao đổi'.upper(), Style.RESET_ALL)
             input()
             pass
         elif card_give in ['Stadium', 'TV Station', 'Business Complex'] or card_receive in ['Stadium', 'TV Station', 'Business Complex']:
-            print(Fore.LIGHTRED_EX, self.turn.name, "lỗi trao đổi thẻ 'Big Construction'".upper(), Style.RESET_ALL)
+            # 1print(Fore.LIGHTRED_EX, self.turn.name, "lỗi trao đổi thẻ 'Big Construction'".upper(), Style.RESET_ALL)
             pass
         else:
             if self.turn.support_cards[card_give] == 0 or self.players[id_player].support_cards[card_receive] == 0:
-                print(Fore.LIGHTRED_EX, self.turn.name, 'lỗi không có thẻ để trao đổi'.upper(), Style.RESET_ALL)
+                # 1print(Fore.LIGHTRED_EX, self.turn.name, 'lỗi không có thẻ để trao đổi'.upper(), Style.RESET_ALL)
                 raise ValueError("273")
                 pass
             else:
@@ -278,7 +277,7 @@ class MachiKoro_Env(gym.Env):
                 self.turn._Player__support_cards[card_receive] += 1
                 self.players[id_player]._Player__support_cards[card_give] += 1
                 self.players[id_player]._Player__support_cards[card_receive] -= 1
-                print(self.turn.name, f"đổi thẻ '{card_give}' lấy thẻ '{card_receive}' của", self.players[id_player].name)
+                # 1print(self.turn.name, f"đổi thẻ '{card_give}' lấy thẻ '{card_receive}' của", self.players[id_player].name)
         
         self.dict_input['Remaining_exchange_times'] -= 1
         self.change_phase()
@@ -330,12 +329,12 @@ class MachiKoro_Env(gym.Env):
             
             if income_from_bank != 0:
                 self.players[i]._Player__coins += income_from_bank
-                print(self.players[i].name, f'nhận {income_from_bank} đồng từ ngân hàng')
+                # 1print(self.players[i].name, f'nhận {income_from_bank} đồng từ ngân hàng')
             
             if income_from_dice_roller != 0:
                 self.turn._Player__coins -= income_from_dice_roller
                 self.players[i]._Player__coins += income_from_dice_roller
-                print(self.players[i].name, f'nhận {income_from_dice_roller} đồng từ', self.turn.name)
+                # 1print(self.players[i].name, f'nhận {income_from_dice_roller} đồng từ', self.turn.name)
         
         # Duyệt đến các thẻ của mình: Activated from ['You', 'Anyone]
         my_active_cards = dict({item for item in self.turn.support_cards.items()
@@ -367,25 +366,25 @@ class MachiKoro_Env(gym.Env):
                     for i in range(indexx-1, indexx-self.players.__len__(), -1):
                         temp = min(self.players[i].coins, 2 * my_active_cards[key])
                         if temp != 0:
-                            print(self.turn.name, f'nhận {temp} đồng từ', self.players[i].name)
+                            # 1print(self.turn.name, f'nhận {temp} đồng từ', self.players[i].name)
                             income_from_all_player += temp
                             self.players[i]._Player__coins -= temp
                 
                 elif self.turn.support_cards_object[key].income_from == 'Chosen Player':
-                    print(self.turn.name, f'có {my_active_cards[key]} lần chọn lấy tối đa {5} đồng từ một người khác')
+                    # 1print(self.turn.name, f'có {my_active_cards[key]} lần chọn lấy tối đa {5} đồng từ một người khác')
                     self.dict_input['Remaining_robbery_times'] = my_active_cards[key]
                     for i in range(my_active_cards[key]):
                         phases.append('Coin_robbery')
                 
                 else:
-                    print(self.turn.name, f'có {my_active_cards[key]} lần trao đổi thẻ với một người khác')
+                    # 1print(self.turn.name, f'có {my_active_cards[key]} lần trao đổi thẻ với một người khác')
                     self.dict_input['Remaining_exchange_times'] = my_active_cards[key]
                     for i in range(my_active_cards[key]):
                         phases.append('Exchange')
 
         self.turn._Player__coins += income_from_all_player
         if income_from_bank != 0:
-            print(self.turn.name, f'nhận {income_from_bank} đồng từ ngân hàng')
+            # 1print(self.turn.name, f'nhận {income_from_bank} đồng từ ngân hàng')
             self.turn._Player__coins += income_from_bank
 
         phases.append('Card_shopping')
@@ -399,7 +398,7 @@ class MachiKoro_Env(gym.Env):
         else:
             self.value_of_dice = None
         
-        print('Giá trị xúc xắc:', self.value_of_dice)
+        # 1print('Giá trị xúc xắc:', self.value_of_dice)
 
     def set_phase(self, phase: str):
         self.phase = phase
