@@ -6,6 +6,7 @@ import os
 import numpy as np
 path = os.path.dirname(os.path.abspath(__file__)) + "/"
 
+
 class Agent(Player):
     def __init__(self, name):
         super().__init__(name)
@@ -24,7 +25,7 @@ class Agent(Player):
         winning = self.check_victory(State)
         if winning != -1:
             try:
-                with open(path + "envs/agents/model.json", 'r') as openfile:
+                with open(path + "model.json", 'r') as openfile:
                     model = json.load(openfile)
             except:
                 model = [[{} for _ in range(len(State))] for _ in range(self.amount_action_space)]
