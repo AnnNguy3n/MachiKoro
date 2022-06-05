@@ -19,15 +19,13 @@ class MachiKoro_Env(gym.Env):
 
     def __init__(self):
         self.__full_action = list(json.load(open('gym_MachiKoro/envs/action_space.json')).values())
+        self.board = Board()
         self.reset()
 
     def reset(self):
-        self.board = Board()
-        self.board = Board()
-        amount_player = min(agent_interface.list_player.__len__(), 4)
-        self.players = random.sample(agent_interface.list_player, k=amount_player)
-        for player in self.players:
-            player.reset()
+        self.board.reset()
+        temp = random.sample([i for i in range(agent_interface.lst.__len__())], k=min(agent_interface.lst.__len__(), 4))
+        self.players = [agent_interface.lst[i].Agent(agent_interface.lst_name[i]) for i in temp]
 
         self.turn = random.choice(self.players)
         self.bonus_turn = False
