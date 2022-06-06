@@ -40,12 +40,7 @@ def main():
     return env.p_name_victory
 
 
-count = {}
-for van in range(100):
+for van in range(1):
     with suppress_stdout():
         name = main()
-    if name in count.keys():
-        count[name] += 1
-    else:
-        count[name] = 1
-    print(count)
+    print(name)
