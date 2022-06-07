@@ -24,10 +24,8 @@ def predict(state,act,model,max_limit,min_limit):
  
  
 class Agent(Player):
-    with open(path + 'data.json', 'r') as f:
-        data = json.load(f)
-    with open(path + 'model.json', 'r') as f:
-        model = json.load(f)
+    data = []
+    model = []
     max_limit = np.load(path+"max_limit.npy")
     min_limit = np.load(path+"min_limit.npy")
     def __init__(self, name):
@@ -43,6 +41,12 @@ class Agent(Player):
         return new_state
     
     def action(self, dict_input):
+        if len(Agent.data) == 0:
+            with open(path + 'data.json', 'r') as f:
+                Agent.data = json.load(f)
+        if len(Agent.model) == 0:
+            with open(path + 'model.json', 'r') as f:
+                Agent.model = json.load(f)
         State = self.get_list_state(dict_input)
         list_action = self.get_list_index_action(State)
         action = None

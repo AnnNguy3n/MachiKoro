@@ -40,7 +40,7 @@ def main():
     return env.p_name_victory
 
 
-for van in range(1):
+for van in range(1000):
     with suppress_stdout():
         name = main()
     print(name)
