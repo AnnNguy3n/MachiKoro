@@ -8,9 +8,4 @@ class Agent(Player):
         super().__init__(name)
 
     def action(self, dict_input):
-        
-        action_space = self.action_space(dict_input)
-        action = random.choice(action_space)
-        state = self.get_list_state(dict_input)
-        print(self.get_list_index_action(self.get_list_state(dict_input)))
-        return action
+        return random.choice(self.get_list_index_action(self.get_list_state(dict_input)))

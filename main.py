@@ -26,7 +26,7 @@ def main():
         p.action(deepcopy(env.dict_input))
 
 start = time.time()
-for i in range(1):
+for i in range(100):
     main()
     
     # print([p.name for p in env.players])

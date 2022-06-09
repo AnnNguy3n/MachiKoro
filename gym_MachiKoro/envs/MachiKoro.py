@@ -174,6 +174,10 @@ class MachiKoro_Env(gym.Env):
             print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do đã mua rồi".upper(), Style.RESET_ALL)
             self.end_turn()
 
+        elif name in ['Business Complex', 'TV Station', 'Stadium'] and self.turn.support_cards[name] != 0:
+            print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do thẻ này chỉ được mua 1 lần".upper(), Style.RESET_ALL)
+            self.end_turn()
+
         elif name in self.board.support_cards_object.keys():
             if self.turn.coins < self.board.support_cards_object[name].price:
                 print(Fore.LIGHTRED_EX, self.turn.name, f"lỗi không đủ tiền mua thẻ '{name}'".upper(), Style.RESET_ALL)
