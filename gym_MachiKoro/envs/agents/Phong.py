@@ -21,7 +21,7 @@ class Agent(Player):
         # #   print('important card', self.important_land_cards)
         # #   print([p.support_cards for p in dict_input['Player']])
         dict_card = dict_card_(self.support_cards_object, self.support_cards)
-        #   print(dict_card)
+        # print(dict_card['Wheat Field'])
         if dict_input['Phase'] == 'Card_shopping':
             #   print(dict_input['Phase'], a_s)
             dict_as_price = {}
