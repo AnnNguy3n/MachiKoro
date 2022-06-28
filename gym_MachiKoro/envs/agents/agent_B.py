@@ -6,8 +6,12 @@ from colorama import Fore, Style
 class Agent(Player):
     def __init__(self, name):
         super().__init__(name)
+        self.history = []
 
     def action(self, dict_input):
+        print(self.history)
+        self.history.append(self.history.__len__())
+        # print(self.get_list_state(dict_input))
         # print(self.name, end=', ')
         # print([p.name for p in dict_input['Player']])
         # print(dict_input['Turn_id'], 'Turn_id')
@@ -20,7 +24,7 @@ class Agent(Player):
 
         # print(list_action, 'action có thể làm')
         action = random.choice(list_action)
-        print(action, 'action chọn')
+        # print(action, 'action chọn')
         victory = self.check_victory(self.get_list_state(dict_input))
         if victory == 1:
             print(Fore.LIGHTYELLOW_EX + self.name + ' thắng', end='')

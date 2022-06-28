@@ -174,6 +174,13 @@ class Player:
                 pass
 
             list_index.append(460)
+            if 447 in list_index and state[10] != 0:
+                list_index.remove(447)
+            if 448 in list_index and state[11] != 0:
+                list_index.remove(448)
+            if 449 in list_index and state[12] != 0:
+                list_index.remove(449)
+
             return list_index
         
         elif phase == 3:
@@ -264,6 +271,9 @@ class Player:
                 t_e_m_p[i] = 1
         
         state_list += t_e_m_p
+
+        # Giá trị của xúc xắc
+        state_list += [dict_input['Value_of_dice']]
 
         return state_list
 

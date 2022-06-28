@@ -1,0 +1,1 @@
+Hệ thống đang phân biệt các người chơi theo tên, hãy đặt tên của các người chơi khác nhau để tránh bug hệ thống

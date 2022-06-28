@@ -11,7 +11,7 @@ def main():
     env.reset()
     env.run_game()
 
-    for i in range(500):
+    for i in range(1000):
         o,a,done,t = env.step(env.turn.action(deepcopy(env.dict_input)))
         if done:
             break
@@ -21,6 +21,8 @@ def main():
         env.dict_input['Player'] = [p]
         for i in range(1, env.players.__len__()):
             env.dict_input['Player'].append(env.players[(turn_id+i) % env.players.__len__()])
+        
+        env.dict_input['Value_of_dice'] = 0
 
         p.action(deepcopy(env.dict_input))
         # if env.p_name_victory != 'Phong':
@@ -29,7 +31,8 @@ def main():
     return env.p_name_victory
 
 start = time.time()
-print(Counter(main() for i in range(100)))
+for i in range(1):
+    main()
     
 end = time.time()
 print(end - start)

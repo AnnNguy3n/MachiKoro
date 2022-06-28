@@ -19,15 +19,13 @@ class MachiKoro_Env(gym.Env):
 
     def __init__(self):
         self.__full_action = list(json.load(open('gym_MachiKoro/envs/action_space.json')).values())
+        self.board = Board()
         self.reset()
 
     def reset(self):
-        self.board = Board()
-        self.board = Board()
-        amount_player = min(agent_interface.list_player.__len__(), 4)
-        self.players = random.sample(agent_interface.list_player, k=amount_player)
-        for player in self.players:
-            player.reset()
+        self.board.reset()
+        temp = random.sample([i for i in range(agent_interface.lst.__len__())], k=min(agent_interface.lst.__len__(), 4))
+        self.players = [agent_interface.lst[i].Agent(agent_interface.lst_name[i]) for i in temp]
 
         self.turn = random.choice(self.players)
         self.bonus_turn = False
@@ -174,6 +172,10 @@ class MachiKoro_Env(gym.Env):
     def card_shopping(self, name: str):
         if name in self.dict_input['Cards_bought']:
             # 1print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do đã mua rồi".upper(), Style.RESET_ALL)
+            self.end_turn()
+
+        elif name in ['Business Complex', 'TV Station', 'Stadium'] and self.turn.support_cards[name] != 0:
+            print(Fore.LIGHTRED_EX, self.turn.name, f"không thể mua thẻ '{name}' nữa do thẻ này chỉ được mua 1 lần".upper(), Style.RESET_ALL)
             self.end_turn()
 
         elif name in self.board.support_cards_object.keys():
@@ -398,8 +400,11 @@ class MachiKoro_Env(gym.Env):
             self.value_of_dice = random.randint(1,6), random.randint(1,6)
         else:
             self.value_of_dice = None
-        
-        self.dict_input['Value_of_dice'] = self.value_of_dice
+        try:
+            self.dict_input['Value_of_dice'] = sum(self.value_of_dice)
+        except:
+            self.dict_input['Value_of_dice'] = self.value_of_dice
+            
         print('Giá trị xúc xắc:', self.value_of_dice)
 
     def set_phase(self, phase: str):
