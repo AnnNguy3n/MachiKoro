@@ -4,8 +4,8 @@
 # from gym_MachiKoro.envs.agents import S_a as p4
 
 from gym_MachiKoro.envs.agents import Phong_new as p1
-from gym_MachiKoro.envs.agents import random as p2
-from gym_MachiKoro.envs.agents import random as p3
+from gym_MachiKoro.envs.agents import Phong as p2
+from gym_MachiKoro.envs.agents import Phong as p3
 from gym_MachiKoro.envs.agents import agent_C as p4
 
 agent1 = p1.Agent('Phong')

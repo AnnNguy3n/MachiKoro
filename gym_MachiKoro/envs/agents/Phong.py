@@ -47,9 +47,10 @@ class Agent(Player):
                 if self.important_land_cards['Train Station'] == 0:
                     #   print('list_action', a)
                     for card in a_s:
-                        if dict_card[card][0][0] <= 6:
-                            #   print( dict_card[card])
-                            return card
+                        if card != '':
+                            if dict_card[card][0][0] <= 6:
+                                #   print( dict_card[card])
+                                return card
                 else:
                     for card in a_s: 
                         if card != '' and card not in self.important_land_cards.keys():
